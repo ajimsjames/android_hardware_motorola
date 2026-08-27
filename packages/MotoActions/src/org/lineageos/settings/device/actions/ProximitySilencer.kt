@@ -26,7 +26,7 @@ class ProximitySilencer(
 
     private val telecomManager = context.getSystemService(TelecomManager::class.java)
     private val telephonyManager = context.getSystemService(TelephonyManager::class.java)
-    private val proximitySensor: Sensor = sensorHelper.getSensor(Sensor.TYPE_PROXIMITY)!!
+    private val proximitySensor: Sensor? = sensorHelper.getSensor(Sensor.TYPE_PROXIMITY)
 
     private var isEnabled = false
     private var isRinging = false
@@ -55,7 +55,7 @@ class ProximitySilencer(
                 when {
                     state == TelephonyManager.CALL_STATE_RINGING && !isRinging -> {
                         Log.d(TAG, "Ringing started")
-                        sensorHelper.registerListener(proximitySensor, proximityListener)
+                        proximitySensor?.let { sensorHelper.registerListener(it, proximityListener) }
                         isRinging = true
                         ringStartedMs = System.currentTimeMillis()
                     }
@@ -63,6 +63,7 @@ class ProximitySilencer(
                         Log.d(TAG, "Ringing stopped")
                         sensorHelper.unregisterListener(proximityListener)
                         isRinging = false
+                        coveredRinging = false
                     }
                 }
             }
@@ -72,7 +73,7 @@ class ProximitySilencer(
         object : SensorEventListener {
             @Synchronized
             override fun onSensorChanged(event: SensorEvent) {
-                val maxRange = kotlin.math.round(proximitySensor.maximumRange * 10f) / 10f
+                val maxRange = kotlin.math.round((proximitySensor?.maximumRange ?: 0f) * 10f) / 10f
                 val isNear = event.values[0] < maxRange
                 val now = System.currentTimeMillis()
 

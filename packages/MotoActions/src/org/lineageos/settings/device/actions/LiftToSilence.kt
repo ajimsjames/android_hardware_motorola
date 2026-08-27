@@ -28,8 +28,8 @@ class LiftToSilence(
 
     private val telecomManager = context.getSystemService(TelecomManager::class.java)
     private val telephonyManager = context.getSystemService(TelephonyManager::class.java)
-    private val flatUpSensor: Sensor = sensorHelper.getSensor(SENSOR_TYPE_MMI_FLAT_UP)!!
-    private val stowSensor: Sensor = sensorHelper.getSensor(SENSOR_TYPE_MMI_STOW)!!
+    private val flatUpSensor: Sensor? = sensorHelper.getSensor(SENSOR_TYPE_MMI_FLAT_UP)
+    private val stowSensor: Sensor? = sensorHelper.getSensor(SENSOR_TYPE_MMI_STOW)
 
     private var isEnabled = false
     private var isRinging = false
@@ -58,8 +58,8 @@ class LiftToSilence(
                 when {
                     state == TelephonyManager.CALL_STATE_RINGING && !isRinging -> {
                         Log.d(TAG, "Ringing started")
-                        sensorHelper.registerListener(flatUpSensor, flatUpListener)
-                        sensorHelper.registerListener(stowSensor, stowListener)
+                        flatUpSensor?.let { sensorHelper.registerListener(it, flatUpListener) }
+                        stowSensor?.let { sensorHelper.registerListener(it, stowListener) }
                         isRinging = true
                     }
                     state != TelephonyManager.CALL_STATE_RINGING && isRinging -> {

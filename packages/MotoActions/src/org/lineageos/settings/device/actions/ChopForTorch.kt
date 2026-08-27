@@ -54,8 +54,8 @@ class ChopForTorch(
             }
         }
     private val vibrator = context.getSystemService(Vibrator::class.java)
-    private val chopChopSensor: Sensor = sensorHelper.getSensor(SENSOR_TYPE_MMI_CHOP_CHOP)!!
-    private val proximitySensor: Sensor = sensorHelper.getSensor(Sensor.TYPE_PROXIMITY)!!
+    private val chopChopSensor: Sensor? = sensorHelper.getSensor(SENSOR_TYPE_MMI_CHOP_CHOP)
+    private val proximitySensor: Sensor? = sensorHelper.getSensor(Sensor.TYPE_PROXIMITY)
 
     private var isEnabled = false
     private var proxIsCovered = false
@@ -70,8 +70,8 @@ class ChopForTorch(
         }
         if (enabled) {
             Log.d(TAG, "Enabling")
-            sensorHelper.registerListener(chopChopSensor, chopChopListener)
-            sensorHelper.registerListener(proximitySensor, proximityListener)
+            chopChopSensor?.let { sensorHelper.registerListener(it, chopChopListener) }
+            proximitySensor?.let { sensorHelper.registerListener(it, proximityListener) }
         } else {
             Log.d(TAG, "Disabling")
             sensorHelper.unregisterListener(chopChopListener)
@@ -108,7 +108,7 @@ class ChopForTorch(
         object : SensorEventListener {
             @Synchronized
             override fun onSensorChanged(event: SensorEvent) {
-                val maxRange = kotlin.math.round(proximitySensor.maximumRange * 10f) / 10f
+                val maxRange = kotlin.math.round((proximitySensor?.maximumRange ?: 0f) * 10f) / 10f
                 proxIsCovered = event.values[0] < maxRange
             }
 

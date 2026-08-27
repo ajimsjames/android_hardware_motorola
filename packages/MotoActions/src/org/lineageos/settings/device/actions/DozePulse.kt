@@ -33,8 +33,8 @@ class DozePulse(
     private val powerManager: PowerManager = context.getSystemService(PowerManager::class.java)
     private val wakeLock: WakeLock =
         powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "$TAG:WakeLock")
-    private val flatUpSensor: Sensor = sensorHelper.getSensor(SENSOR_TYPE_MMI_FLAT_UP)!!
-    private val stowSensor: Sensor = sensorHelper.getSensor(SENSOR_TYPE_MMI_STOW)!!
+    private val flatUpSensor: Sensor? = sensorHelper.getSensor(SENSOR_TYPE_MMI_FLAT_UP)
+    private val stowSensor: Sensor? = sensorHelper.getSensor(SENSOR_TYPE_MMI_STOW)
 
     private var isStowed = false
     private var lastStowed = false
@@ -64,8 +64,8 @@ class DozePulse(
             sensorHelper.unregisterListener(stowListener)
         } else {
             Log.d(TAG, "Enabling")
-            sensorHelper.registerListener(flatUpSensor, flatUpListener)
-            sensorHelper.registerListener(stowSensor, stowListener)
+            flatUpSensor?.let { sensorHelper.registerListener(it, flatUpListener) }
+            stowSensor?.let { sensorHelper.registerListener(it, stowListener) }
             lastDozeTime = System.currentTimeMillis()
         }
     }

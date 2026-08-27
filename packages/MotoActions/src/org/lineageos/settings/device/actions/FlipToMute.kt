@@ -27,8 +27,8 @@ class FlipToMute(
     private val sensorHelper: SensorHelper,
 ) : UpdatedStateNotifier {
 
-    private val flatDownSensor: Sensor = sensorHelper.getSensor(SENSOR_TYPE_MMI_FLAT_DOWN)!!
-    private val stowSensor: Sensor = sensorHelper.getSensor(SENSOR_TYPE_MMI_STOW)!!
+    private val flatDownSensor: Sensor? = sensorHelper.getSensor(SENSOR_TYPE_MMI_FLAT_DOWN)
+    private val stowSensor: Sensor? = sensorHelper.getSensor(SENSOR_TYPE_MMI_STOW)
     private val notificationManager = context.getSystemService(NotificationManager::class.java)
 
     private var isEnabled = false
@@ -43,8 +43,8 @@ class FlipToMute(
         }
         if (enabled) {
             Log.d(TAG, "Enabling")
-            sensorHelper.registerListener(flatDownSensor, flatDownListener)
-            sensorHelper.registerListener(stowSensor, stowListener)
+            flatDownSensor?.let { sensorHelper.registerListener(it, flatDownListener) }
+            stowSensor?.let { sensorHelper.registerListener(it, stowListener) }
             context.registerReceiver(
                 receiver,
                 IntentFilter(NotificationManager.ACTION_INTERRUPTION_FILTER_CHANGED),
