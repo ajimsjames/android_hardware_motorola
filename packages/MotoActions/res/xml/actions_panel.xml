@@ -41,4 +41,28 @@
 
     </PreferenceCategory>
 
+    <PreferenceCategory
+        android:key="hardware_boost_category"
+        android:title="@string/hardware_boost_category">
+
+        <SwitchPreferenceCompat
+            android:key="hbm_boost_enabled"
+            android:defaultValue="false"
+            android:title="@string/hbm_boost_title"
+            android:summary="@string/hbm_boost_summary" />
+
+        <SwitchPreferenceCompat
+            android:key="vibration_overdrive_enabled"
+            android:defaultValue="true"
+            android:title="@string/vibration_overdrive_title"
+            android:summary="@string/vibration_overdrive_summary" />
+
+        <SwitchPreferenceCompat
+            android:key="audio_stereo_boost_enabled"
+            android:defaultValue="true"
+            android:title="@string/audio_stereo_boost_title"
+            android:summary="@string/audio_stereo_boost_summary" />
+
+    </PreferenceCategory>
+
 </PreferenceScreen>

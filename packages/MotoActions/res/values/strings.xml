@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="actions_title">Moto Actions &amp; Enhancements</string>
+    <string name="actions_key">Gestures</string>
+    <string name="hardware_boost_category">Hardware Boost &amp; Overdrive</string>
+    <string name="hbm_boost_title">Sunlight High Brightness Mode (HBM)</string>
+    <string name="hbm_boost_summary">Boost OLED display luminance to 1600 nits for direct sunlight readability</string>
+    <string name="vibration_overdrive_title">Vibration Saturation Overdrive</string>
+    <string name="vibration_overdrive_summary">Drive PMIC haptic motor at full 3.6V (100% saturation) for calls and notifications</string>
+    <string name="audio_stereo_boost_title">Stereo Earpiece &amp; Speaker Boost</string>
+    <string name="audio_stereo_boost_summary">Enhance top earpiece volume output in media playback for balanced stereo effect</string>
+    <string name="chop_chop_gesture_title">Fast flashlight</string>
+    <string name="chop_chop_gesture_summary">Turn the flashlight on or off with two chopping motions</string>
+    <string name="hand_wave_silencer_title">Hand wave</string>
+    <string name="hand_wave_silencer_summary">Silence incoming calls by waving your hand over the screen</string>
+    <string name="flip_to_mute_title">Flip for DND</string>
+    <string name="flip_to_mute_summary">Place the phone face down to activate Do Not Disturb</string>
+    <string name="lift_to_silence_title">Pick up to silence</string>
+    <string name="lift_to_silence_summary">Lift the phone to switch incoming calls to vibrate</string>
+</resources>

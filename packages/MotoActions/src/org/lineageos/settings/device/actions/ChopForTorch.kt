@@ -55,12 +55,19 @@ class ChopForTorch(
         }
     private val vibrator = context.getSystemService(Vibrator::class.java)
     private val chopChopSensor: Sensor? = sensorHelper.getSensor(SENSOR_TYPE_MMI_CHOP_CHOP)
+    private val accelSensor: Sensor? = if (chopChopSensor == null) sensorHelper.getSensor(Sensor.TYPE_ACCELEROMETER) else null
     private val proximitySensor: Sensor? = sensorHelper.getSensor(Sensor.TYPE_PROXIMITY)
 
     private var isEnabled = false
     private var proxIsCovered = false
     private var torchEnabled = false
     private var rearCameraId: String? = null
+
+    // Fallback Chop Gesture Detection Variables
+    private var lastChopTimeMs: Long = 0
+    private var chopCount = 0
+    private var lastZAccel = 0f
+    private var lastToggleTimeMs: Long = 0
 
     @Synchronized
     override fun updateState() {
@@ -69,34 +76,77 @@ class ChopForTorch(
             return
         }
         if (enabled) {
-            Log.d(TAG, "Enabling")
-            chopChopSensor?.let { sensorHelper.registerListener(it, chopChopListener) }
+            Log.d(TAG, "Enabling chop chop (hw sensor = ${chopChopSensor != null})")
+            if (chopChopSensor != null) {
+                sensorHelper.registerListener(chopChopSensor, chopChopListener)
+            } else if (accelSensor != null) {
+                sensorHelper.registerListener(accelSensor, accelChopListener)
+            }
             proximitySensor?.let { sensorHelper.registerListener(it, proximityListener) }
         } else {
-            Log.d(TAG, "Disabling")
+            Log.d(TAG, "Disabling chop chop")
             sensorHelper.unregisterListener(chopChopListener)
+            sensorHelper.unregisterListener(accelChopListener)
             sensorHelper.unregisterListener(proximityListener)
         }
         isEnabled = enabled
+    }
+
+    private fun toggleTorch() {
+        if (proxIsCovered) {
+            Log.d(TAG, "proximity sensor covered, ignoring chop-chop")
+            return
+        }
+        val now = System.currentTimeMillis()
+        if (now - lastToggleTimeMs < 800) return
+        lastToggleTimeMs = now
+
+        vibrator.vibrate(
+            VibrationEffect.createOneShot(250, VibrationEffect.DEFAULT_AMPLITUDE)
+        )
+
+        rearCameraId?.let { id ->
+            runCatching {
+                cameraManager.setTorchMode(id, !torchEnabled)
+                torchEnabled = !torchEnabled
+            }
+        }
     }
 
     private val chopChopListener =
         object : SensorEventListener {
             @Synchronized
             override fun onSensorChanged(event: SensorEvent) {
-                Log.d(TAG, "chop chop triggered")
-                if (proxIsCovered) {
-                    Log.d(TAG, "proximity sensor covered, ignoring chop-chop")
-                    return
-                }
-                vibrator.vibrate(
-                    VibrationEffect.createOneShot(250, VibrationEffect.DEFAULT_AMPLITUDE)
-                )
+                Log.d(TAG, "hw chop chop triggered")
+                toggleTorch()
+            }
 
-                rearCameraId?.let { id ->
-                    runCatching {
-                        cameraManager.setTorchMode(id, !torchEnabled)
-                        torchEnabled = !torchEnabled
+            override fun onAccuracyChanged(sensor: Sensor, accuracy: Int) {}
+        }
+
+    private val accelChopListener =
+        object : SensorEventListener {
+            @Synchronized
+            override fun onSensorChanged(event: SensorEvent) {
+                val x = event.values[0]
+                val y = event.values[1]
+                val z = event.values[2]
+                val totalAccel = kotlin.math.sqrt((x * x + y * y + z * z).toDouble()).toFloat()
+
+                // Detect sharp acceleration spike characteristic of a chop motion (> 26 m/s^2)
+                if (totalAccel > 26.0f) {
+                    val now = System.currentTimeMillis()
+                    if (now - lastChopTimeMs in 180..800) {
+                        chopCount++
+                        if (chopCount >= 2) {
+                            Log.d(TAG, "software chop-chop gesture detected (peak: $totalAccel)")
+                            chopCount = 0
+                            lastChopTimeMs = 0
+                            toggleTorch()
+                        }
+                    } else if (now - lastChopTimeMs > 800) {
+                        chopCount = 1
+                        lastChopTimeMs = now
                     }
                 }
             }
