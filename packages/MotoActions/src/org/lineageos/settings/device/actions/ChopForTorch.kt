@@ -17,6 +17,7 @@ import android.hardware.camera2.CameraManager.TorchCallback
 import android.os.VibrationEffect
 import android.os.Vibrator
 import android.util.Log
+import org.lineageos.settings.device.ActionsPreferenceFragment
 import org.lineageos.settings.device.MotoActionsSettings.GESTURE_CHOP_CHOP_KEY
 import org.lineageos.settings.device.SensorHelper
 import org.lineageos.settings.device.SensorHelper.Companion.SENSOR_TYPE_MMI_CHOP_CHOP
@@ -107,8 +108,21 @@ class ChopForTorch(
 
         rearCameraId?.let { id ->
             runCatching {
-                cameraManager.setTorchMode(id, !torchEnabled)
-                torchEnabled = !torchEnabled
+                val nextState = !torchEnabled
+                cameraManager.setTorchMode(id, nextState)
+                torchEnabled = nextState
+
+                // Apply custom LED brightness if turning ON
+                if (nextState) {
+                    val level = sharedPreferences.getString(ActionsPreferenceFragment.KEY_TORCH_BRIGHTNESS, "250") ?: "250"
+                    ActionsPreferenceFragment.writeNode(
+                        listOf(
+                            "/sys/class/leds/led:torch_0/brightness",
+                            "/sys/class/leds/led:torch_1/brightness"
+                        ),
+                        level
+                    )
+                }
             }
         }
     }

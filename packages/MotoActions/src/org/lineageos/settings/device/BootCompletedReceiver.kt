@@ -15,7 +15,8 @@ import android.util.Log
 class BootCompletedReceiver : BroadcastReceiver() {
 
     override fun onReceive(context: Context, intent: Intent) {
-        Log.i(TAG, "Booting")
+        Log.i(TAG, "Booting - restoring hardware settings")
+        ActionsPreferenceFragment.applyAllSettings(context)
         context.startServiceAsUser(
             Intent(context, MotoActionsService::class.java),
             UserHandle.CURRENT,

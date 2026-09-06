@@ -2,13 +2,6 @@
 <resources>
     <string name="actions_title">Moto Actions &amp; Enhancements</string>
     <string name="actions_key">Gestures</string>
-    <string name="hardware_boost_category">Hardware Boost &amp; Overdrive</string>
-    <string name="hbm_boost_title">Sunlight High Brightness Mode (HBM)</string>
-    <string name="hbm_boost_summary">Boost OLED display luminance to 1600 nits for direct sunlight readability</string>
-    <string name="vibration_overdrive_title">Vibration Saturation Overdrive</string>
-    <string name="vibration_overdrive_summary">Drive PMIC haptic motor at full 3.6V (100% saturation) for calls and notifications</string>
-    <string name="audio_stereo_boost_title">Stereo Earpiece &amp; Speaker Boost</string>
-    <string name="audio_stereo_boost_summary">Enhance top earpiece volume output in media playback for balanced stereo effect</string>
     <string name="chop_chop_gesture_title">Fast flashlight</string>
     <string name="chop_chop_gesture_summary">Turn the flashlight on or off with two chopping motions</string>
     <string name="hand_wave_silencer_title">Hand wave</string>
@@ -17,4 +10,64 @@
     <string name="flip_to_mute_summary">Place the phone face down to activate Do Not Disturb</string>
     <string name="lift_to_silence_title">Pick up to silence</string>
     <string name="lift_to_silence_summary">Lift the phone to switch incoming calls to vibrate</string>
+
+    <!-- Display Boost & Controls -->
+    <string name="display_boost_category">Display &amp; Sunlight Engine</string>
+    <string name="hbm_boost_title">Sunlight High Brightness Mode (HBM)</string>
+    <string name="hbm_boost_summary">Direct hardware override pushing pOLED panel to 1600 nits peak luminance</string>
+    <string name="dc_dimming_title">DC Dimming (Anti-Flicker)</string>
+    <string name="dc_dimming_summary">Reduce screen flicker at low brightness to minimize eye strain</string>
+    <string name="edge_rejection_title">Curved Edge Touch Rejection</string>
+    <string name="edge_rejection_summary">Suppress accidental palm touches along the curved screen edges</string>
+
+    <!-- Performance & Kernel Profiles -->
+    <string name="performance_category">Performance &amp; CPU/GPU Profiles</string>
+    <string name="perf_profile_title">System Performance Profile</string>
+    <string name="perf_profile_summary">Directly tunes WALT/EAS energy models and CPU uclamp top-app thresholds</string>
+    <string name="touch_gaming_title">High Touch Sampling Rate (Gaming Mode)</string>
+    <string name="touch_gaming_summary">Boost touchscreen polling rate to 360Hz for ultra-low latency response</string>
+
+    <!-- Flashlight & Hardware LED Control -->
+    <string name="flash_torch_category">Flashlight &amp; LED Power</string>
+    <string name="torch_brightness_title">Torchlight LED Strength</string>
+    <string name="torch_brightness_summary">Adjust the physical LED current output for the dual-tone flash</string>
+
+    <!-- Audio & Haptics Overdrive -->
+    <string name="audio_haptics_category">Audio &amp; Vibration Overdrive</string>
+    <string name="vibration_overdrive_title">Vibration Saturation Overdrive</string>
+    <string name="vibration_overdrive_summary">Drive PMIC haptic motor at full 3.6V (100% saturation) for calls and notifications</string>
+    <string name="audio_stereo_boost_title">Stereo Earpiece &amp; Speaker Boost</string>
+    <string name="audio_stereo_boost_summary">Enhance top earpiece volume output in media playback for balanced stereo effect</string>
+
+    <!-- Battery & Power Management -->
+    <string name="battery_health_category">Battery &amp; Charging Control</string>
+    <string name="charge_limit_80_title">Limit Charge to 80%</string>
+    <string name="charge_limit_80_summary">Extend battery lifespan by halting charging at 80%</string>
+
+    <!-- Selection Arrays -->
+    <string-array name="perf_profile_entries">
+        <item>Balanced (Dynamic EAS)</item>
+        <item>Power Save (Low Frequency Bias)</item>
+        <item>Gaming &amp; Touch Boost (High Uclamp Boost)</item>
+        <item>Extreme Overdrive (Maximum Core Frequency)</item>
+    </string-array>
+    <string-array name="perf_profile_values" translatable="false">
+        <item>balanced</item>
+        <item>powersave</item>
+        <item>gaming</item>
+        <item>overdrive</item>
+    </string-array>
+
+    <string-array name="torch_brightness_entries">
+        <item>Standard (100 mA)</item>
+        <item>Enhanced (250 mA)</item>
+        <item>High Power (400 mA)</item>
+        <item>Maximum Overdrive (500 mA)</item>
+    </string-array>
+    <string-array name="torch_brightness_values" translatable="false">
+        <item>100</item>
+        <item>250</item>
+        <item>400</item>
+        <item>500</item>
+    </string-array>
 </resources>

@@ -42,14 +42,66 @@
     </PreferenceCategory>
 
     <PreferenceCategory
-        android:key="hardware_boost_category"
-        android:title="@string/hardware_boost_category">
+        android:key="display_boost_category"
+        android:title="@string/display_boost_category">
 
         <SwitchPreferenceCompat
             android:key="hbm_boost_enabled"
             android:defaultValue="false"
             android:title="@string/hbm_boost_title"
             android:summary="@string/hbm_boost_summary" />
+
+        <SwitchPreferenceCompat
+            android:key="dc_dimming_enabled"
+            android:defaultValue="false"
+            android:title="@string/dc_dimming_title"
+            android:summary="@string/dc_dimming_summary" />
+
+        <SwitchPreferenceCompat
+            android:key="edge_rejection_enabled"
+            android:defaultValue="true"
+            android:title="@string/edge_rejection_title"
+            android:summary="@string/edge_rejection_summary" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:key="performance_category"
+        android:title="@string/performance_category">
+
+        <ListPreference
+            android:key="perf_profile"
+            android:defaultValue="balanced"
+            android:entries="@array/perf_profile_entries"
+            android:entryValues="@array/perf_profile_values"
+            android:title="@string/perf_profile_title"
+            android:summary="%s" />
+
+        <SwitchPreferenceCompat
+            android:key="touch_gaming_enabled"
+            android:defaultValue="false"
+            android:title="@string/touch_gaming_title"
+            android:summary="@string/touch_gaming_summary" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:key="flash_torch_category"
+        android:title="@string/flash_torch_category">
+
+        <ListPreference
+            android:key="torch_brightness_level"
+            android:defaultValue="250"
+            android:entries="@array/torch_brightness_entries"
+            android:entryValues="@array/torch_brightness_values"
+            android:title="@string/torch_brightness_title"
+            android:summary="%s" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:key="audio_haptics_category"
+        android:title="@string/audio_haptics_category">
 
         <SwitchPreferenceCompat
             android:key="vibration_overdrive_enabled"
@@ -62,6 +114,18 @@
             android:defaultValue="true"
             android:title="@string/audio_stereo_boost_title"
             android:summary="@string/audio_stereo_boost_summary" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:key="battery_health_category"
+        android:title="@string/battery_health_category">
+
+        <SwitchPreferenceCompat
+            android:key="charge_limit_80_enabled"
+            android:defaultValue="false"
+            android:title="@string/charge_limit_80_title"
+            android:summary="@string/charge_limit_80_summary" />
 
     </PreferenceCategory>
 
