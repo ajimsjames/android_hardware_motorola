@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="actions_title">Moto Actions &amp; Enhancements</string>
+    <string name="actions_summary">Gestures, Sunlight HBM, Performance Profiles &amp; Audio Boost</string>
     <string name="actions_key">Gestures</string>
     <string name="chop_chop_gesture_title">Fast flashlight</string>
     <string name="chop_chop_gesture_summary">Turn the flashlight on or off with two chopping motions</string>
@@ -27,17 +28,12 @@
     <string name="touch_gaming_title">High Touch Sampling Rate (Gaming Mode)</string>
     <string name="touch_gaming_summary">Boost touchscreen polling rate to 360Hz for ultra-low latency response</string>
 
-    <!-- Flashlight & Hardware LED Control -->
-    <string name="flash_torch_category">Flashlight &amp; LED Power</string>
-    <string name="torch_brightness_title">Torchlight LED Strength</string>
-    <string name="torch_brightness_summary">Adjust the physical LED current output for the dual-tone flash</string>
-
-    <!-- Audio & Haptics Overdrive -->
-    <string name="audio_haptics_category">Audio &amp; Vibration Overdrive</string>
-    <string name="vibration_overdrive_title">Vibration Saturation Overdrive</string>
-    <string name="vibration_overdrive_summary">Drive PMIC haptic motor at full 3.6V (100% saturation) for calls and notifications</string>
-    <string name="audio_stereo_boost_title">Stereo Earpiece &amp; Speaker Boost</string>
-    <string name="audio_stereo_boost_summary">Enhance top earpiece volume output in media playback for balanced stereo effect</string>
+    <!-- Audio Boost & Channel Gains -->
+    <string name="audio_boost_category">Audio Gain &amp; Speaker Boost</string>
+    <string name="earpiece_boost_title">Top Earpiece Volume Boost</string>
+    <string name="earpiece_boost_summary">Amplify top earpiece output for balanced stereo and loud calls</string>
+    <string name="speaker_boost_title">Bottom Speaker Volume Boost</string>
+    <string name="speaker_boost_summary">Amplify primary bottom speaker output for louder media</string>
 
     <!-- Battery & Power Management -->
     <string name="battery_health_category">Battery &amp; Charging Control</string>
@@ -58,16 +54,16 @@
         <item>overdrive</item>
     </string-array>
 
-    <string-array name="torch_brightness_entries">
-        <item>Standard (100 mA)</item>
-        <item>Enhanced (250 mA)</item>
-        <item>High Power (400 mA)</item>
-        <item>Maximum Overdrive (500 mA)</item>
+    <string-array name="audio_gain_entries">
+        <item>Standard (0 dB)</item>
+        <item>Moderate Boost (+2 dB)</item>
+        <item>High Boost (+4 dB)</item>
+        <item>Extreme Boost (+6 dB)</item>
     </string-array>
-    <string-array name="torch_brightness_values" translatable="false">
-        <item>100</item>
-        <item>250</item>
-        <item>400</item>
-        <item>500</item>
+    <string-array name="audio_gain_values" translatable="false">
+        <item>0</item>
+        <item>2</item>
+        <item>4</item>
+        <item>6</item>
     </string-array>
 </resources>

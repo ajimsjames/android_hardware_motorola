@@ -111,18 +111,6 @@ class ChopForTorch(
                 val nextState = !torchEnabled
                 cameraManager.setTorchMode(id, nextState)
                 torchEnabled = nextState
-
-                // Apply custom LED brightness if turning ON
-                if (nextState) {
-                    val level = sharedPreferences.getString(ActionsPreferenceFragment.KEY_TORCH_BRIGHTNESS, "250") ?: "250"
-                    ActionsPreferenceFragment.writeNode(
-                        listOf(
-                            "/sys/class/leds/led:torch_0/brightness",
-                            "/sys/class/leds/led:torch_1/brightness"
-                        ),
-                        level
-                    )
-                }
             }
         }
     }

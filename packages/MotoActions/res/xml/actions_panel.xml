@@ -86,34 +86,24 @@
     </PreferenceCategory>
 
     <PreferenceCategory
-        android:key="flash_torch_category"
-        android:title="@string/flash_torch_category">
+        android:key="audio_boost_category"
+        android:title="@string/audio_boost_category">
 
         <ListPreference
-            android:key="torch_brightness_level"
-            android:defaultValue="250"
-            android:entries="@array/torch_brightness_entries"
-            android:entryValues="@array/torch_brightness_values"
-            android:title="@string/torch_brightness_title"
+            android:key="earpiece_gain_boost"
+            android:defaultValue="0"
+            android:entries="@array/audio_gain_entries"
+            android:entryValues="@array/audio_gain_values"
+            android:title="@string/earpiece_boost_title"
             android:summary="%s" />
 
-    </PreferenceCategory>
-
-    <PreferenceCategory
-        android:key="audio_haptics_category"
-        android:title="@string/audio_haptics_category">
-
-        <SwitchPreferenceCompat
-            android:key="vibration_overdrive_enabled"
-            android:defaultValue="true"
-            android:title="@string/vibration_overdrive_title"
-            android:summary="@string/vibration_overdrive_summary" />
-
-        <SwitchPreferenceCompat
-            android:key="audio_stereo_boost_enabled"
-            android:defaultValue="true"
-            android:title="@string/audio_stereo_boost_title"
-            android:summary="@string/audio_stereo_boost_summary" />
+        <ListPreference
+            android:key="speaker_gain_boost"
+            android:defaultValue="0"
+            android:entries="@array/audio_gain_entries"
+            android:entryValues="@array/audio_gain_values"
+            android:title="@string/speaker_boost_title"
+            android:summary="%s" />
 
     </PreferenceCategory>
 
