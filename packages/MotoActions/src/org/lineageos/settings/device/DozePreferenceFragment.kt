@@ -7,6 +7,7 @@
 package org.lineageos.settings.device
 
 import android.content.Context
+import android.content.DialogInterface
 import android.os.Bundle
 import androidx.appcompat.app.AlertDialog
 import androidx.preference.Preference
@@ -94,7 +95,7 @@ class DozePreferenceFragment :
         AlertDialog.Builder(requireActivity())
             .setTitle(R.string.doze_settings_help_title)
             .setMessage(R.string.doze_settings_help_text)
-            .setPositiveButton(R.string.dialog_ok) { dialog, _ ->
+            .setPositiveButton(R.string.dialog_ok) { dialog: DialogInterface, _ ->
                 requireActivity()
                     .getSharedPreferences("doze_panel", Context.MODE_PRIVATE)
                     .edit()

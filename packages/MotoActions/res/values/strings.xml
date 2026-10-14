@@ -66,4 +66,9 @@
         <item>4</item>
         <item>6</item>
     </string-array>
+
+    <!-- Dialog Strings -->
+    <string name="doze_settings_help_title">Ambient display</string>
+    <string name="doze_settings_help_text">Ambient display shows notifications when you pick up your phone or wave your hand over the screen.</string>
+    <string name="dialog_ok">OK</string>
 </resources>
